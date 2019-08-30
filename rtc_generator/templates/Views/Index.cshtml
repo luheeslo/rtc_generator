@@ -1,0 +1,88 @@
+@model IEnumerable<rtc.Data.Models.{{ model }}>
+
+@{
+    ViewBag.Title = @rtc.Web.Common.Resources.Language.{{ model }}s;
+}
+
+<!-- Main Content -->
+<div class="page-wrapper">
+    <div class="container-fluid">
+        
+        <!-- Title -->
+        <div class="row heading-bg">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h5 class="txt-dark">@rtc.Web.Common.Resources.Language.Manage{{ model }}s</h5>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li>
+                        @Html.ActionLink(@rtc.Web.Common.Resources.Language.Add{{ model }}, "Create")
+                    </li>
+                </ol>
+            </div>
+            <!-- /Breadcrumb -->
+        </div>
+        <!-- /Title -->
+        
+        <!-- Row -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default card-view">
+                    <div class="panel-heading">
+                        <div class="pull-left">
+                            <h6 class="panel-title txt-dark">@rtc.Web.Common.Resources.Language.{{ model }}s</h6>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body">
+                            <div class="table-wrap">
+                                <div class="">
+                                    <table id="myTable1" class="table table-hover display  pb-30" >
+                                        <thead>
+                                            <tr>
+                                                {% for attr in attrs %}
+                                                <th>
+                                                    @rtc.Web.Common.Resources.Language.{{ attr }}
+                                                </th>
+                                                {% endfor %}
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                           <tr>
+                                                {% for attr in attrs %}
+                                                <th>
+                                                    @rtc.Web.Common.Resources.Language.{{ attr }}
+                                                </th>
+                                                {% endfor %}
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                    {% for attr in attrs %}
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.{{ attr }})
+                                                        </td>
+                                                    {% endfor %}
+                                                        <td>
+                                                            <a href="@Url.Action("Edit", new { id = item.Id })" title=@rtc.Web.Common.Resources.Language.Edit><i class="glyphicon glyphicon-edit mr-20 edit-button"></i></a>
+                                                            <a href="@Url.Action("Delete", new { id = item.Id })" title=@rtc.Web.Common.Resources.Language.Remove><i class="glyphicon glyphicon-trash mr-20 delete-button"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>	
+            </div>
+        </div>
+        <!-- /Row -->
+    </div>        
+</div>
+<!-- /Main Content -->

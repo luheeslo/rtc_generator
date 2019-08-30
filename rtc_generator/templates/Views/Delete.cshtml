@@ -1,0 +1,73 @@
+@model rtc.Data.Models.{{ model }}
+
+@{
+    ViewBag.Title = @rtc.Web.Common.Resources.Language.Remove{{ model }};
+}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+
+       <!-- Title -->
+
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <p class="error">@ViewBag.ErrorMessage</p>
+                <h5 class="txt-dark">@rtc.Web.Common.Resources.Language.Remove{{ model }}</h5>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li>
+                        @Html.ActionLink(@rtc.Web.Common.Resources.Language.{{ model }}List, "Index")
+                    </li>
+                </ol>
+            </div>
+            <!-- /Breadcrumb -->
+        </div>
+        <!-- /Title -->
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default card-view">
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body">
+                            <h6 class="txt-dark"><i class="fa fa-exclamation-circle mr-10"></i>@rtc.Web.Common.Resources.Language.{{ model }}RemoveConfirm</h6>
+                            <hr class="light-grey-hr">
+                            <div class="tab-content" id="myTabContent_7">
+                                <div class="table-wrap">
+                                    <div class="table-responsive">
+                                        <table class="table  mb-0">
+                                        <tbody>
+                                        {% for attr in attrs %}
+                                            <tr>
+                                                <td class="border-none"><strong>@Html.DisplayNameFor(model => model.{{ attr }})</strong></td>
+                                                <td class="border-none">@Html.DisplayFor(model => model.{{ attr }})</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            @using (Html.BeginForm()) {
+                                @Html.AntiForgeryToken() 
+                                <div class="form-actions pull-right">
+                                    <button type="submit" class="btn btn-danger btn-icon mr-10"><span>@rtc.Web.Common.Resources.Language.Remove</span></button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    @Html.ActionLink(@rtc.Web.Common.Resources.Language.{{ model }}List, "Index")
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
