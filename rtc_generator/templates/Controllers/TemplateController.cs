@@ -19,9 +19,9 @@ namespace rtc.Web.Mvc.Controllers
     {
         private readonly IRepository<{{ model }}> _{{ model|lower }}Repository;
 
-        public {{ model }}Controller(IRepository<{{ model }}> productRepository)
+        public {{ model }}Controller(IRepository<{{ model }}> {{ model|lower }}Repository)
         {
-            _{{ model|lower }}Repository = productRepository;
+            _{{ model|lower }}Repository = {{ model|lower }}Repository;
         }
 
         // GET: {{ model }}
@@ -38,13 +38,13 @@ namespace rtc.Web.Mvc.Controllers
                 return NotFound();
             }
 
-            var product = _{{ model|lower }}Repository.FindById(id);
-            if (product == null)
+            var {{ model|lower }} = _{{ model|lower }}Repository.FindById(id);
+            if ({{ model|lower }} == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View({{ model|lower }});
         }
 
         // GET: {{ model }}/Create
@@ -58,13 +58,13 @@ namespace rtc.Web.Mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("{{ attrs|join(',')}}")] {{ model }} product)
+        public ActionResult Create([Bind("{{ attrs|join(',')}}")] {{ model }} {{ model|lower }})
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _{{ model|lower }}Repository.Add(product);
+                    _{{ model|lower }}Repository.Add({{ model|lower }});
                     _{{ model|lower }}Repository.Save();
                 }
                 catch (DbUpdateException e)
@@ -73,7 +73,7 @@ namespace rtc.Web.Mvc.Controllers
                         if (e.InnerException.Message.Contains("duplicate key"))
                         {
                             ModelState.AddModelError("", Language.Duplicate{{ model }}Code);
-                            return View(product);
+                            return View({{ model|lower }});
                         }   
                     }
                     else
@@ -83,7 +83,7 @@ namespace rtc.Web.Mvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View({{ model|lower }});
         }
 
         // GET: {{ model }}/Edit/5
@@ -94,12 +94,12 @@ namespace rtc.Web.Mvc.Controllers
                 return NotFound();
             }
 
-            var product = _{{ model|lower }}Repository.FindById(id);
-            if (product == null)
+            var {{ model|lower }} = _{{ model|lower }}Repository.FindById(id);
+            if ({{ model|lower }} == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return View({{ model|lower }});
         }
 
         // POST: {{ model }}/Edit/5
@@ -107,9 +107,9 @@ namespace rtc.Web.Mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(long id, [Bind("{{ attrs|join(',')}}")] {{ model }} product)
+        public ActionResult Edit(long id, [Bind("{{ attrs|join(',')}}")] {{ model }} {{ model|lower }})
         {
-            if (id != product.Id)
+            if (id != {{ model|lower }}.Id)
             {
                 return NotFound();
             }
@@ -118,12 +118,12 @@ namespace rtc.Web.Mvc.Controllers
             {
                 try
                 {
-                    _{{ model|lower }}Repository.Update(product);
+                    _{{ model|lower }}Repository.Update({{ model|lower }});
                     _{{ model|lower }}Repository.Save();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!{{ model }}Exists(product.Id))
+                    if (!{{ model }}Exists({{ model|lower }}.Id))
                     {
                         return NotFound();
                     }
@@ -138,7 +138,7 @@ namespace rtc.Web.Mvc.Controllers
                         if (e.InnerException.Message.Contains("duplicate key"))
                         {
                             ModelState.AddModelError("", Language.Duplicate{{ model }}Code);
-                            return View(product);
+                            return View({{ model|lower }});
                         }   
                     }
                     else
@@ -148,7 +148,7 @@ namespace rtc.Web.Mvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View({{ model|lower }});
         }
 
         // GET: {{ model }}/Delete/5
@@ -159,13 +159,13 @@ namespace rtc.Web.Mvc.Controllers
                 return NotFound();
             }
 
-            var product = _{{ model|lower }}Repository.FindById(id);
-            if (product == null)
+            var {{ model|lower }} = _{{ model|lower }}Repository.FindById(id);
+            if ({{ model|lower }} == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View({{ model|lower }});
         }
 
         // POST: {{ model }}/Delete/5
@@ -173,8 +173,8 @@ namespace rtc.Web.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            var product = _{{ model|lower }}Repository.FindById(id);
-            _{{ model|lower }}Repository.Remove(product);
+            var {{ model|lower }} = _{{ model|lower }}Repository.FindById(id);
+            _{{ model|lower }}Repository.Remove({{ model|lower }});
             _{{ model|lower }}Repository.Save();
             return RedirectToAction(nameof(Index));
         }
